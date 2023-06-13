@@ -1,16 +1,11 @@
 version: '3'
 services:
   app:
-    entrypoint:
-      - sleep
-      - infinity
     image: docker/dev-environments-go:stable-1
     init: true
     volumes:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
-    command: >
-      sh -c "apt-get update && apt-get install -y gcc-multilib && exec sleep infinity"
-
-
+      - ./init.sh:/init.sh
+    command: /init.sh
